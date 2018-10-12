@@ -8,7 +8,7 @@ TIME_STEP_LEFT_RIGHT = 200
 
 TIME_STEP_UP_DOWN = round(TIME_STEP_LEFT_RIGHT * 10/6)
 """Time step for a up or down move, in milliseconds."""
-# todo: make TIME_STEP stuff better (e.g. would be nice to set just one number)
+# todo: refactor TIME_STEP into a variable speed
 
 STDSCR = None
 """Set when main is called."""
@@ -77,9 +77,9 @@ def generate_food():
     STDSCR.move(y, x)  # restore cursor position
 
 
-# todo: fix TIME_STEP comments
 def get_direction(last_direction):
-    """Will block for up to TIME_STEP milliseconds and return a valid direction.
+    """Will block for up to TIME_STEP_LEFT_RIGHT or TIME_STEP_UP_DOWN
+    milliseconds and return a valid direction.
     If no direction is chosen, returns last_direction.
     """
     # set timeout
@@ -119,11 +119,6 @@ def move(tail, last_direction, direction):
     elif direction == RIGHT_KEY:
         x += 1
         STDSCR.timeout(TIME_STEP_LEFT_RIGHT)
-
-    ### move
-    # max_y, max_x = STDSCR.getmaxyx()
-    # end = len(tail) == (max_y - 2) * (max_x - 2)  # move this code
-    ### move
 
     end = False
     # food detection
